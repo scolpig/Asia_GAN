@@ -27,8 +27,8 @@ sp = dlib.shape_predictor('./models/shape_predictor_5_face_landmarks.dat')
 
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
-saver = tf.train.import_meta_graph('./models/model.meta')
-saver.restore(sess, tf.train.latest_checkpoint('./models'))
+saver = tf.train.import_meta_graph('imgs/models/model.meta')
+saver.restore(sess, tf.train.latest_checkpoint('imgs/models'))
 graph = tf.get_default_graph()
 X = graph.get_tensor_by_name('X:0')
 Y = graph.get_tensor_by_name('Y:0')
@@ -39,7 +39,7 @@ def preprocess(img):
 def deprocess(img):
     return (img + 1) / 2 # 0 ~ 1 사이의 원래 값으로 복원
 
-img1 = dlib.load_rgb_image('./imgs/12.jpg')
+img1 = dlib.load_rgb_image('./imgs/14.jpg')
 img1_faces = align_faces(img1, detector, sp)
 
 img2 = dlib.load_rgb_image('./imgs/makeup/vFG56.png')
@@ -50,12 +50,23 @@ axes[0].imshow(img1_faces[0])
 axes[1].imshow(img2_faces[0])
 plt.show()
 
+src_img = img1_faces[0]
+ref_img = img2_faces[0]
 
+X_img = preprocess(src_img)
+X_img = np.expand_dims(X_img, axis=0)
 
+Y_img = preprocess(ref_img)
+Y_img = np.expand_dims(Y_img, axis=0)
 
+output = sess.run(Xs, feed_dict={X:X_img, Y:Y_img})
+output_img = deprocess(output[0])
 
-
-
-
-
-
+fig, axes = plt.subplots(1, 3, figsize=(20,10))
+axes[0].set_title('Source')
+axes[0].imshow(src_img)
+axes[1].set_title('Reference')
+axes[1].imshow(ref_img)
+axes[2].set_title('Result')
+axes[2].imshow(output_img)
+plt.show()
