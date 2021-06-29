@@ -39,7 +39,7 @@ def preprocess(img):
 def deprocess(img):
     return (img + 1) / 2 # 0 ~ 1 사이의 원래 값으로 복원
 
-img1 = dlib.load_rgb_image('./imgs/14.jpg')
+img1 = dlib.load_rgb_image('./imgs/14.png')
 img1_faces = align_faces(img1, detector, sp)
 
 img2 = dlib.load_rgb_image('./imgs/makeup/vFG56.png')
