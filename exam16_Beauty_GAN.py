@@ -143,3 +143,5 @@ img2 = dlib.load_rgb_image("../img/06.jpg")
 
 face_detection(img1)
 beauty_gan(img1, img2)
+
+# test
