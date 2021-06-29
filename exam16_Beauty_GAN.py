@@ -55,14 +55,3 @@ axes[2].set_title('Result')
 axes[2].imshow(output_img)
 plt.show()
 
-
-
-
-
-
-
-
-
-
-
-
