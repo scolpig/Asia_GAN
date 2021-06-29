@@ -2,7 +2,7 @@ import dlib
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+tf.disable_v2_behavior()   #tensorflow 2.x버전에서 1.x버전 코드가 돌아가도록 하는
 import numpy as np
 
 def align_faces(img, detector, sp):
@@ -43,8 +43,6 @@ X = graph.get_tensor_by_name('X:0')
 Y = graph.get_tensor_by_name('Y:0')
 Xs = graph.get_tensor_by_name('generator/xs:0')
 
-
-
 img1 = dlib.load_rgb_image('./imgs/12.jpg')
 img1_faces = align_faces(img1, detector, sp)
 
@@ -76,8 +74,6 @@ axes[1].imshow(ref_img)
 axes[2].set_title('Result')
 axes[2].imshow(output_img)
 plt.show()
-
-
 
 
 
