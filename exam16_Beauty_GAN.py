@@ -5,13 +5,7 @@ import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 import numpy as np
 
-detector = dlib.get_frontal_face_detector()
-sp = dlib.shape_predictor('./models/shape_predictor_5_face_landmarks.dat')
-
-img = dlib.load_rgb_image('./imgs/12.jpg')
-plt.figure(figsize=(16,10))
-plt.imshow(img)
-plt.show()
+def align_faces(img, detector, sp):
 
 img_result = img.copy()
 dets = detector(img)
@@ -39,12 +33,28 @@ for detection in dets:
 ax.imshow(img_result)
 plt.show()
 
-faces = dlib.get_face_chips(img, objs, size=256, padding=0.3)
-fig, axes = plt.subplots(1, len(faces)+1, figsize=(20,16))
-axes[0].imshow(img)
-for i, face in enumerate(faces):
-    axes[i+1].imshow(face)
+# 화장을 입히기
+src_img = img1_faces[0]
+ref_img = img2_faces[0]
+
+X_img = preprocess(src_img)
+X_img = np.expand_dims(X_img, axis=0)
+
+Y_img = preprocess(ref_img)
+Y_img = np.expand_dims(Y_img, axis=0)
+
+output = sess.run(Xs, feed_dict={X:X_img, Y:Y_img}) # predict
+output_img = deprocess(output[0])
+
+fig, axes = plt.subplots(1,3,figsize=(20,10))
+axes[0].set_title('Source')
+axes[0].imshow(src_img)
+axes[1].set_title('Reference')
+axes[1].imshow(ref_img)
+axes[2].set_title('Result')
+axes[2].imshow(output_img)
 plt.show()
+
 
 
 
