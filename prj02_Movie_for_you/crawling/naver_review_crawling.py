@@ -23,6 +23,7 @@ reviews = []
 try:
     for i in range(1,44): # 연도별 영화 리스트 페이지수 확인하세요
         url = 'https://movie.naver.com/movie/sdb/browsing/bmovie.nhn?open=2019&page={}'.format(i)
+
         for j in range(1,21): #영화 제목 리스트 페이지당 20개
             try:
                 driver.get(url)
@@ -39,8 +40,9 @@ try:
                     review_len_xpath = '//*[@id="reviewTab"]/div/div/div[2]/span/em'
                     review_len = driver.find_element_by_xpath(review_len_xpath).text
 
-
-                    review_len = int(review_len)
+                    review_len = int(review_len.replace(',',''))
+                    if review_len > 50:
+                        review_len = 50
                     try:
                         for k in range(1, ((review_len-1) // 10)+2):
                             review_page_xpath = '//*[@id="pagerTagAnchor{}"]/span'.format(k)
@@ -65,22 +67,23 @@ try:
                                 except:
                                     time.sleep(1)
                                     print('review title click error')
+
                     except:
                         print('review page btn click error')
                 except:
                     print('review btn click error')
-
+                df_review = pd.DataFrame({'titles': titles, 'reviews': reviews})
+                df_review.to_csv('./reviews_2019_{}.csv'.format(j + (i - 1) * 20))
             except NoSuchElementException:
                 driver.get(url)
                 time.sleep(1)
                 print('NoSuchElementException')
         print(len(reviews))
-    df_review = pd.DataFrame({'titles':titles, 'reviews':reviews})
-    df_review['years'] = 2019
-    print(df_review.head(20))
-    df_review.to_csv('./reviews_2019.csv')
-
-
+        df_review = pd.DataFrame({'titles': titles, 'reviews': reviews})
+        print(df_review.head(20))
+        df_review.to_csv('./reviews_2019_{}_page.csv'.format(i))
+    df_review = pd.DataFrame({'titles': titles, 'reviews': reviews})
+    df_review.to_csv('./reviews_2019_.csv')
 except:
     print('except1')
 finally:
