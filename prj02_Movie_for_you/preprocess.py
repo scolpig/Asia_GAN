@@ -19,7 +19,7 @@ okt = Okt()
 
 stopwords = pd.read_csv('./crawling/stopwords.csv',
                         index_col=0)
-movie_stopwords = ['영화', '배우', '감독']
+movie_stopwords = ['영화', '배우', '감독', '관객', '작품', '주인공', '개봉', '촬영']
 stopwords_list = list(stopwords.stopword) + movie_stopwords
 
 count = 0
