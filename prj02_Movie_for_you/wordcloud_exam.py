@@ -17,21 +17,21 @@ fontpath = './malgun.ttf'
 font_name = font_manager.FontProperties(fname=fontpath).get_name()
 rc('font', family=font_name)
 mpl.font_manager._rebuild()
-df = pd.read_csv('./crawling/one_sentence_review_2020.csv', index_col=0)
+df = pd.read_csv('./crawling/one_sentence_review_2017_2020.csv', index_col=0)
 df.dropna(inplace=True)
 #print(df.info())
 
 print(df.head(20))
 
-movie_index = df[df['titles'] == '1917 (1917)'].index[0]
+movie_index = df[df['titles'] == '강호의 무림신공 (Struggle on the Wulinclen)'].index[0]
 #print(movie_index)
-print(df.reviews[movie_index])
+#print(df.reviews[movie_index])
 words = df.reviews[movie_index].split(' ')
-print(words)
-
+#print(words)
+print(df.titles.unique()[:30])
 worddict = collections.Counter(words)
 worddict = dict(worddict)
-print(worddict)
+#print(worddict)
 stopwords = ['관객', '작품', '주인공', '개봉', '촬영']
 wordcloud_img = WordCloud(
     background_color='white', max_words=2000,
