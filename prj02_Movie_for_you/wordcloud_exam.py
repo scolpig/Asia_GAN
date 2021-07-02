@@ -23,7 +23,7 @@ df.dropna(inplace=True)
 
 print(df.head(20))
 
-movie_index = df[df['titles'] == '강호의 무림신공 (Struggle on the Wulinclen)'].index[0]
+movie_index = df[df['titles'] == '더 빌리지'].index[0]
 #print(movie_index)
 #print(df.reviews[movie_index])
 words = df.reviews[movie_index].split(' ')
@@ -32,10 +32,11 @@ print(df.titles.unique()[:30])
 worddict = collections.Counter(words)
 worddict = dict(worddict)
 #print(worddict)
-stopwords = ['관객', '작품', '주인공', '개봉', '촬영']
+stopwords = ['관객', '작품', '주인공', '개봉', '촬영', '출연']
 wordcloud_img = WordCloud(
     background_color='white', max_words=2000,
     font_path=fontpath,
+    collocations=False,
     stopwords=stopwords
     ).generate(df.reviews[movie_index])
 # wordcloud_img = WordCloud(
