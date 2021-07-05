@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from gensim.models import Word2Vec
+from gensim.models import Word2Vec #경고뜨면 conda install -c conda-forge python-levenshtein
 from sklearn.manifold import TSNE
 from matplotlib import font_manager, rc
 import matplotlib as mpl

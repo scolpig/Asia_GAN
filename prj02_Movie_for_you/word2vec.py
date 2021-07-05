@@ -1,5 +1,5 @@
 import pandas as pd
-from gensim.models import Word2Vec
+from gensim.models import Word2Vec #경고뜨면 conda install -c conda-forge python-levenshtein
 
 review_word = pd.read_csv(
     './crawling/cleaned_review_2017_2020.csv',
