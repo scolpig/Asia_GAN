@@ -16,7 +16,7 @@ def align_faces(img, detector, sp):
     return faces
 
 detector = dlib.get_frontal_face_detector()
-sp = dlib.shape_predictor('./models/shape_predictor_68_face_landmarks.dat')
+sp = dlib.shape_predictor('./models/shape_predictor_5_face_landmarks.dat')
 
 # test_img = dlib.load_rgb_image('./imgs/17.jpg')
 # test_faces = align_faces(test_img, detector, sp)
